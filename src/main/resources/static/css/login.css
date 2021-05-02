@@ -1,0 +1,35 @@
+.error{
+    margin-top: 5%;
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
+
+form {
+    font-size: large;
+    padding-top: 60px;
+}
+
+input{
+   height: 22px;
+}
+
+.window {
+    padding: 15px;
+}
+
+.login_buttons {
+    position: center;
+    text-align: center;
+    max-width: 150px;
+    margin: auto;
+}
+
+#login_button{
+    border-radius: 12px;
+    padding: 15px 32px;
+}
+
+footer{
+    margin-top: 30%;
+}

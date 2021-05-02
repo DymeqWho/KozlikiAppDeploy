@@ -1,0 +1,308 @@
+html {
+    /*line-height: 1.15;*/
+    /*-webkit-text-size-adjust: 100%;*/
+}
+
+
+body {
+    padding: 0;
+    text-align: center;
+    font-family: "Arial", serif;
+    font-size: larger;
+    max-width: 1440px;
+    margin: auto;
+    color: black;
+    font-weight: bold;
+}
+
+#container{
+    background-image: url("/images/background2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    opacity: 0.175;
+    width: 1440px;
+    height: 100%;
+    position: fixed;
+    z-index: -9;
+
+}
+
+#rezerwacje_button a{
+    color: black;
+}
+
+article, section {
+    display: none;
+}
+
+label{
+    color: black;
+    font-weight: bolder;
+}
+
+input, button{
+    background-color: #c7c4be;
+    z-index: 1;
+    opacity: 1;
+}
+
+#skansen_article #yt_text{
+    opacity: 1;
+}
+
+#skansen_article {
+    display: block;
+    padding-bottom: 6%;
+    }
+
+h1 {
+    font-size: 350%;
+}
+
+h2 {
+    font-size: 200%;
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+    color: #0000ff;
+}
+
+a:hover {
+    color: #d2691e;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #0000ff;
+}
+
+a:visited:hover{
+    color: #cd6925;
+}
+
+#menu_span {
+    display: none;
+}
+
+header {
+    max-width: 90%;
+    margin: auto;
+}
+
+.topnav {
+    position: center;
+    position: -webkit-sticky;
+    top: 0;
+    position: sticky;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: #1a1a72;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 10;
+}
+
+button {
+    border-radius: 12px;
+    padding: 5px;
+}
+
+button:hover {
+    background-color: azure;
+    color: chocolate;
+    cursor: pointer;
+}
+
+#rezerwacje_a:hover {
+    color: chocolate;
+}
+
+#hamburger_icon {
+    display: none;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+article {
+    max-width: 90%;
+    margin: auto;
+    line-height: 1.5;
+}
+
+article p {
+    text-align: justify;
+}
+
+article li {
+    text-align: justify;
+}
+
+#statut_text p {
+    text-align: center;
+}
+
+footer {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-top: 16%;
+}
+
+#skansen_localization {
+    margin-top: 10px;
+}
+
+#skansen_localization a {
+    cursor: pointer;
+}
+
+#skansen_localization a:hover {
+    opacity: 0.9;
+}
+
+#narodowy_link {
+    text-decoration: underline;
+}
+
+#narodowy_link:hover {
+    color: chocolate;
+}
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+a.fa.fa-facebook::before {
+    color: white;
+}
+
+.movie {
+    margin-top: 5px;
+}
+
+#format-statut-text p {
+    text-align: center;
+}
+
+#format-statut-text .format-text {
+    text-align: justify;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+@media screen and (min-width: 640px) and (max-width: 1080px){
+    h1 {
+        font-size: 150%;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    body {
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 150%;
+    }
+
+    h2 {
+        font-size: 130%;
+    }
+
+    #container{
+        max-width: 90%;
+    }
+
+    .topnav {
+        position: center;
+        position: -webkit-sticky;
+        top: 0;
+        position: sticky;
+        overflow: hidden;
+
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    #hamburger_icon {
+        display: block;
+        background: #0e0e68;
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: white;
+    }
+
+    #hamburger_icon a {
+        color: white;
+    }
+
+    #hamburger_icon:hover {
+        background-color: #d47b7b;
+        color: black;
+    }
+
+    #menu {
+        padding-bottom: 26px;
+        position: sticky;
+    }
+
+    #menu_span {
+        display: block;
+        color: white;
+    }
+
+    .topnav #myLinks {
+        display: none;
+    }
+
+    #myLinks {
+        margin-top: 45px;
+        position: sticky;
+    }
+
+    button {
+        display: table;
+        margin-left: -80px;
+        position: relative;
+        border-radius: 12px;
+        padding: 10px;
+        margin-right: 20px;
+        text-align: center;
+        width: 300%;
+        opacity: 0.9;
+    }
+
+    #skansen_localization {
+        margin-left: -10%;
+        width: 80%;
+        height: 80%;
+    }
+
+    #format-statut-text .format-text {
+        text-align: left;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+}

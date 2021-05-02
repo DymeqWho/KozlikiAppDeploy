@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacje</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Dymitr Misiejuk"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reservations.css}">
+    <script type="text/javascript" th:src="@{/js/reservations.js}"></script>
+</head>
+<body>
+<div id="top-margin">
+    <button type="button" id="button-regulamin" th:onclick="hideAndShowRegulamin()">Pokaż/schowaj regulamin rezerwacji:</button>
+    <a id="top-logout" th:href="@{'/logout'}">
+        <button type="submit" value="logout">Wyloguj</button>
+    </a>
+    <div id="regulamin">
+        <h3>Regulamin rezerwacji Internetowych:</h3>
+        <p>1. Rezerwacji może dokonać tylko osoba do tego upoważniona przez Towarzystwo Przyjaciół Skansenu w Koźlikach
+            (TPSwK) na terenie Skansenu (Obiektu). Administrator może usunąć niewłaściwe rezerwacje.
+            - kontakt do administratora:</p>
+        <address><a href="mailto:skansen.kozliki@gmail.com">skansen.kozliki@gmail.com</a></address>
+
+        <p>
+            2. W celu dokonania rezerwacji niezbędne jest podanie daty od kiedy się ona zaczyna, do kiedy trwa i
+            podpisu.
+            Bez tych informacji nie można złożyć poprawnej rezerwacji. Domyślnie brak wpisu w rubryce „co?” oznacza
+            rezerwację całego Obiektu, notatki/uwagi są opcjonalne. Wpisanie jakiegoś obiektu w rubryce „co?” oznacza
+            tyle,
+            że osoba rezerwująca termin nie ma nic przeciwko, by inne osoby mogły przyjechać i korzystać z pozostałych
+            obiektów, ale mimo wszystko ciągle jest główną osobą odpowiedzialną za utrzymanie porządku na terenie całego
+            Obiektu.
+        <p>
+        <p>
+        3. <u>Dyżury weekendowe zawsze i domyślnie mają priorytet nad innymi rezerwacjami</u>. Informacje o dyżurach
+            dostarczane są co roku na e-maile członków TPSwK i nie muszą być oznaczone w tym systemie rezerwacji.
+            Niewłaściwe rezerwacje, gdy kolidują z rezerwacjami weekendowymi, mogą zostać usunięte z listy rezerwacji
+            przez
+            administratora. Można natomiast zanotować ewentualne wymiany dyżurów między członkami TPSwK, właściwie je
+            opisując we wskazanych do tego miejscach formularza, tak jakby dokonywać zwykłej rezerwacji z opisem w
+            notatkach/uwagach, że to jest wymiana między kim a kim. Potwierdzenie wymiany proszę też przesłać przez
+            osobę
+            podmieniającą swój termin na e-mail administratora: skansen.kozliki@gmail.com żeby taka notatka/rezerwacja
+            na
+            liście nie została usunięta jako niewłaściwa, kolidująca z priorytetowym dyżurem weekendowym.
+        </p>
+        <p>
+            4. Rezerwacji jednorazowo można dokonać maksymalnie na 4 dni kalendarzowe.
+        </p>
+        <p>
+            5. Żaden dzień rezerwacji nie może kolidować z dowolnym dniem innej rezerwacji.
+            Tips: jeżeli zamierzasz rano po swojej rezerwacji opuścić Obiekt, dokonaj rezerwacji do dnia ostatniego
+            noclegu.
+            Nie zablokujesz w ten sposób rezerwacji dnia, w którym już Ciebie nie będzie. W innym wypadku ten dzień
+            liczy
+            się jako Twoja rezerwacja i za niego w pełni odpowiadasz. Nie zwalnia to też Ciebie z obowiązku posprzątania
+            po
+            swojej rezerwacji! Jeżeli się pomylisz, możesz napisać e-mail do administratora na:
+            skansen.kozliki@gmail.com
+            żeby edytował błędny termin.
+        </p>
+        <p>
+            6. Po poprawnie złożonej deklaracji rezerwacji, pojawi się ona na liście dokonanych rezerwacji. Rezerwacja
+            zostanie opatrzona sygnaturą czasową w celu potwierdzenia jej poprawności i dokumentacji.
+        </p>
+        <p>
+            7. Osoba deklarująca rezerwację, w pełni odpowiada za Obiekt, porządek i bezpieczeństwo w trakcie trwania
+            rezerwacji.
+        </p>
+        <p>
+            8. Pamiętaj, że rezerwacja nie sprawia, że Obiekt staje się na ten czas Twoją własnością. Stajesz się jego
+            opiekunem i jako opiekun nim zarządzasz. Uszanujmy swoją prywatność i nie bądźmy dla siebie wścibscy.
+        </p>
+        <p>
+            9. Rezerwacje, których termin „do kiedy?” już minął, będą usuwane z listy po pewnym czasie przez
+            administratora.
+        </p>
+        <p>
+            10. Złożenie deklaracji rezerwacji za pomocą formularza jest równoznaczne z akceptacją tego Regulaminu.
+        </p>
+
+    </div>
+
+</div>
+<h1>Rezerwacje:</h1>
+<div id="reservation_form">
+    <form th:action="@{/reservations}" method="post" class="form-control-plaintext" th:object="${newReservation}">
+        <div class="form-group">
+            <label class="col-form-label" for="fromWhen">
+                Od kiedy?</label>
+            <input class="input-group-text" type="date" id="fromWhen" th:field="*{{fromWhen}}">
+        </div>
+        <div class="error_class" th:if="${#fields.hasErrors('fromWhen')}" th:errors="*{fromWhen}">Błędna data
+            początku rezerwacji!
+        </div>
+        <div class="error_class" th:if="${fromWhenError}" th:text="${fromWhenError}">fromWhenError</div>
+        <div class="error_class" th:if="${overlappingError}" th:text="${overlappingError}">overlappingError</div>
+
+        <div class="form-group">
+            <label class="col-form-label" for="tillWhen"> Do kiedy?</label>
+            <input class="input-group-text" type="date" id="tillWhen" th:field="*{{tillWhen}}">
+        </div>
+        <div class="error_class" th:if="${#fields.hasErrors('tillWhen')}" th:errors="*{tillWhen}">Błędna data
+            zakończenia rezerwacji!
+        </div>
+        <div class="error_class" th:if="${tillWhenError}" th:text="${tillWhenError}">tillWhenError</div>
+        <div class="error_class" th:if="${overlappingError}" th:text="${overlappingError}">overlappingError</div>
+
+        <div class="form-group">
+            <label class="col-form-label" for="who"> Kto?</label>
+            <input class="input-group-text" type="text" id="who" th:field="*{who}" value="jak sie nazywasz?"
+                   placeholder="Jak się nazywasz?">
+        </div>
+        <div class="error_class" th:if="${#fields.hasErrors('who')}" th:errors="*{who}">Przedstaw się!</div>
+
+        <div class="form-group">
+            <label class="col-form-label" for="what"> Co? </label>
+            <input class="input-group-text" type="text" id="what" th:field="*{what}"
+                   value="które obiekty chcesz zarezerwować?" placeholder="Co chcesz zarezerwować?">
+        </div>
+        <div class="error_class" th:if="${#fields.hasErrors('what')}" th:errors="*{what}">Żeś się rozpisał... krócej
+            ;-)
+        </div>
+
+        <div class="form-group">
+            <label class="col-form-label" for="notes"> Notatki/uwagi: </label>
+            <input class="input-group-text" type="text" id="notes" th:field="*{notes}" value="opcjonalne notatki"
+                   placeholder="opcjonalne notatki...">
+        </div>
+        <div class="error_class" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}">Żeś się rozpisał... krócej
+            ;-)
+        </div>
+
+        <div id="submit_button">
+            <button class="btn-dark" type="submit" value="zarezerwuj">Akceptuję regulamin i rezerwuję</button>
+        </div>
+
+        <a th:href="@{/reservations}">
+            <button type="button">Pokaż rezerwacje</button>
+        </a>
+
+    </form>
+</div>
+
+<br/>
+
+<div id="forJs">
+    <div th:each="reservation : ${reservations}" id="reservation_result">
+
+        <div class="reservation-value">
+            Rezerwacja dokonana od: <span class="fromWhen_result" th:text="${reservation.fromWhen}"></span>
+            <br/>
+            do: <span class="tillWhen_result" th:text="${reservation.tillWhen}"></span>
+            <br/>
+            Przez: <span th:text="${reservation.who}"></span>
+            <br/>
+            i obejmuje: <span th:text="${reservation.what}"></span>
+            <br/>
+            Dodatkowe informacje: <span th:text="${reservation.notes}"></span>
+            <br/>
+            <span id="reservation-time">
+        Rezerwacji dokonano: <span id="when_booked" th:text="${reservation.getDateTimeOfReservation()}"></span>
+    </span>
+        </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{'/reservations/update/' + ${reservation.id}}">
+                <button type="submit" value="edit">Edytuj</button>
+            </a>
+            <form th:action="@{'/reservations/delete/' + ${reservation.id}}" th:method="post">
+                <button type="submit" value="delete">
+                    Usuń
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+<br/>
+<a id="bottom-logout" th:href="@{'/logout'}">
+    <button type="submit" value="logout">Wyloguj</button>
+</a>
+
+<br/>
+<br/>
+<footer>Towarzystwo Przyjaciół Skansenu w Koźlikach 2021 &copy; Wszelkie prawa zastrzeżone</footer>
+
+</body>
+
+</html>
