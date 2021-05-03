@@ -6,9 +6,14 @@ import com.dymitrmisiejuk.kozliki.reservation.model.dto.ReservationRequest;
 import com.dymitrmisiejuk.kozliki.reservation.model.dto.ReservationResponse;
 import com.dymitrmisiejuk.kozliki.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -69,6 +74,5 @@ public class ReservationService {
 
         reservationRepository.save(reservationEntity);
     }
-
 
 }
